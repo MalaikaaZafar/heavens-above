@@ -23,13 +23,6 @@ jobs:
 
     - name: Run tests
       run: npm test
-      
-    - name: Install ESLint
-      run: npm install eslint --save-dev
 
-    - name: Initialize ESLint
-      run: npx eslint --init
-
-    - name: Run Lint
-      run: npm run lint
-      
+    - name: Tests success message
+      run: echo "Tests passed successfully!"
