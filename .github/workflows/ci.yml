@@ -31,5 +31,5 @@ jobs:
       run: npx eslint --init
 
     - name: Run Lint
-      run: npm run lint echo 'Success'
+      run: npm run lint
       
