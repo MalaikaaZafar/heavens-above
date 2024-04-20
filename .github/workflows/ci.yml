@@ -28,7 +28,7 @@ jobs:
       run: npm install eslint --save-dev
 
     - name: Initialize ESLint
-      run: npm eslint --init
+      run: npx eslint --init
 
     - name: Run Lint
       run: npm run lint echo 'Success'
