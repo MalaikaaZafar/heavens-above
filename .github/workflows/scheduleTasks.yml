@@ -2,10 +2,10 @@ name: Scheduled Tasks
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # This will run the workflow every day at midnight
+    - cron: '0 0 * * *'  
 
 jobs:
-  task:
+  scheduled:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,7 +21,7 @@ jobs:
       run: npm install
 
     - name: Run task
-      run: npm run task  # Replace this with the command or script you want to run
+      run: echo "Running scheduled task!"
 
     - name: Task success message
       run: echo "Task completed successfully!"
