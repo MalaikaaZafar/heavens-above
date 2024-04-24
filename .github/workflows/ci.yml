@@ -21,8 +21,17 @@ jobs:
     - name: Install dependencies
       run: npm install
 
+    - name: Run linter
+      run: npm run lint
+      continue-on-error: true
+
     - name: Run tests
       run: npm test
 
     - name: Tests success message
+      if: success()
       run: echo "Tests passed successfully!"
+
+    - name: Tests failure message
+      if: failure()
+      run: echo "Tests failed. Please check the logs for more details."
