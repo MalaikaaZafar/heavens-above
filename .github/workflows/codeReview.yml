@@ -18,10 +18,10 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    - name: Run ESLint
-      uses: actions-eslint/eslint@v2
-      with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Run Super-Linter
+      uses: github/super-linter@v4
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Run CodeQL
       uses: github/codeql-action/analyze@v1
