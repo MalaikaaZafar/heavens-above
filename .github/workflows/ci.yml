@@ -21,8 +21,11 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    - name: Run linter
-      run: npm run lint
+    - name: Run Super-Linter
+      uses: github/super-linter@v4
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        EXIT_CODE: false
       continue-on-error: true
 
     - name: Run tests
