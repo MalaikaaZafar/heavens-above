@@ -1,8 +1,6 @@
 name: Code Review
 
-on:
-  push:
-    branches: [ master ]
+on: [ push ]
 
 jobs:
   review:
