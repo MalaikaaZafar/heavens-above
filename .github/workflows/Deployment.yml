@@ -20,11 +20,14 @@ jobs:
 
     - name: Run tests
       run: npm test
+      
+    - name: Deploy to Heroku
+      uses: akhileshns/heroku-deploy@v3.12.12 
+      with:
+        heroku_api_key: "apiKey" # I used a dummy key and app name as heroku requires payment information
+        heroku_app_name: "deployed-app-name" 
+        heroku_email: "malaikazafar2003@gmail.com"
+    
     - name: Success
       run: echo "Deployment Successful"
-    # - name: Deploy to Heroku
-    #   uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
-    #   with:
-    #     heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-    #     heroku_app_name: "your-app-name" #Must be unique in Heroku
-    #     heroku_email: "your-email@example.com"
+   
