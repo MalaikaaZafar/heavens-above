@@ -21,7 +21,19 @@ jobs:
       run: npm install
 
     - name: Run task
-      run: echo "Running scheduled task!"
+      run: npm run task
 
     - name: Task success message
       run: echo "Task completed successfully!"
+
+    - name: Notify on success
+      uses: actions/github-script@v3
+      with:
+        script: |
+          const issue = {
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            title: 'Scheduled task completed successfully',
+            body: 'The scheduled task completed successfully at ' + new Date().toISOString()
+          }
+          github.issues.create(issue)
