@@ -14,17 +14,25 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: '14'
+        check-latest: true
 
     - name: Install dependencies
       run: npm install
 
-    - name: Run Review
-      run: echo "Dependencies have been checked. You are now up to date"
+    - name: Check for outdated dependencies
+      run: npm outdated
 
-    # - name: Run Code Climate
-    #   uses: paambaati/codeclimate-action@v2.7.5
-    #   env:
-    #     CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+    - name: Update dependencies
+      run: npm update
 
-    # - name: Run CodeQL
-    #   uses: github/codeql-action/analyze@v1
+    - name: Run tests
+      run: npm test
+    - name: Update Status
+      run: echo "All dependencies have been updated!"
+    # - name: Commit and push if it was updated
+    #   run: |
+    #     git config --local user.email "action@github.com"
+    #     git config --local user.name "GitHub Action"
+    #     git add -A
+    #     git diff --quiet && git diff --staged --quiet || git commit -m "Update dependencies"
+    #     git push
