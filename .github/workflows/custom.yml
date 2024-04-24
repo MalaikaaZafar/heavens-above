@@ -1,6 +1,8 @@
 name: Custom
 
-on: [push]
+on:
+  release:
+    types: [created]
 
 jobs:
   build:
@@ -18,5 +20,17 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    - name: Run tests
-      run: npm test
+    - name: Generate release notes
+      id: release_notes
+      run: |
+        echo "::set-output name=notes::$(node generate-release-notes.js)"
+
+    - name: Create Release Notes
+      uses: actions/github-script@v3
+      with:
+        github-token: ${{secrets.GITHUB_TOKEN}}
+        script: |
+          const { owner, repo } = context.repo
+          const release = context.payload.release
+          const notes = `${release.body}\n\n${steps.release_notes.outputs.notes}`
+          github.repos.updateRelease({ owner, repo, release_id: release.id, body: notes })
