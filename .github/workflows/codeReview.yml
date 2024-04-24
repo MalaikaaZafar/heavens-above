@@ -1,6 +1,8 @@
 name: Code Review
 
-on: [push]
+on:
+  push:
+    branches: [ master ]
 
 jobs:
   review:
@@ -18,13 +20,19 @@ jobs:
     - name: Install dependencies
       run: npm install
 
+    - name: Run ESLint
+      uses: actions-eslint/eslint@v2
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Run CodeQL
+      uses: github/codeql-action/analyze@v1
+
+    - name: Run SonarCloud
+      uses: sonarsource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
     - name: Run Review
       run: echo "Code under Review"
-
-    # - name: Run Code Climate
-    #   uses: paambaati/codeclimate-action@v2.7.5
-    #   env:
-    #     CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-
-    # - name: Run CodeQL
-    #   uses: github/codeql-action/analyze@v1
